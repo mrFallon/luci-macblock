@@ -1,0 +1,17 @@
+<!-- /usr/lib/lua/luci/view/macblock/actions.htm -->
+<%+cbi/valueheader%>
+<div class="macblock-actions">
+  <button type="submit"
+          class="cbi-button cbi-button-negative macblock-big"
+          name="<%= self.block_opt:cbid(section) %>"
+          value="1">
+    Disable
+  </button>
+  <button type="submit"
+          class="cbi-button cbi-button-apply macblock-big"
+          name="<%= self.unblock_opt:cbid(section) %>"
+          value="1">
+    Enable
+  </button>
+</div>
+<%+cbi/valuefooter%>

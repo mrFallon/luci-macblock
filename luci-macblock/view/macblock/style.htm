@@ -1,0 +1,30 @@
+<!-- /usr/lib/lua/luci/view/macblock/style.htm -->
+<style>
+  /* Big stacked action buttons; stretch full width across Bootstrap/OpenWrt 2020 themes */
+  .macblock-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    min-width: 240px;
+  }
+  .macblock-actions .cbi-button,
+  .macblock-actions .btn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;           /* cancel theme margins causing horizontal shift */
+  }
+  .macblock-big {
+    padding: 16px 22px;
+    font-size: 18px;
+    border-radius: 16px;
+    font-weight: 600;
+  }
+
+  /* Keep built-in Edit/Delete at default size, aligned right */
+  .cbi-section-table .cbi-section-actions {
+    text-align: right;
+    white-space: nowrap;
+  }
+</style>

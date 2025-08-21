@@ -1,0 +1,9 @@
+<!-- /usr/lib/lua/luci/view/macblock/log.htm -->
+<div class="macblock-log">
+  <h3>Executed commands</h3>
+  <pre><%
+    local fs = require "nixio.fs"
+    local content = fs.readfile("/tmp/macblock_last_cmds") or '(none yet)\n'
+    write(content)
+  %></pre>
+</div>
