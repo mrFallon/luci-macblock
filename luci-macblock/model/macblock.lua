@@ -68,17 +68,17 @@ local function get_group_label(section)
   return sanitize_label(uci:get("macblock", section, "name") or section or "group")
 end
 
--- Delete existing rules for group by comment fw4_<group>; returns list of executed delete commands
+-- Delete existing rules for group by comment fw4mb_<group>; returns list of executed delete commands
 local function delete_rules_for_group(comment_label)
-  local target = "fw4_" .. (comment_label or "")
+  local target = "fw4mb_" .. (comment_label or "")
   local deleted = {}
-  local fh = io.popen("nft -a list chain inet fw4 forward 2>/dev/null")
+  local fh = io.popen("nft -a list chain inet fw4 raw_prerouting 2>/dev/null")
   if fh then
     for line in fh:lines() do
       local c = line:match('comment%s+\"(.-)\"')
       local h = line:match('#%s*handle%s+(%d+)')
       if c == target and h then
-        local del = "nft delete rule inet fw4 forward handle " .. h
+        local del = "nft delete rule inet fw4 raw_prerouting handle " .. h
         sys.call(del .. " 2>/dev/null")
         deleted[#deleted+1] = del
       end
@@ -98,7 +98,7 @@ function block.write(self, section)
   if #list == 0 then return end
 
   local label = get_group_label(section)
-  local comment = "fw4_" .. label
+  local comment = "fw4mb_" .. label
   local mac_set = "{" .. table.concat(list, ", ") .. "}"
 
   -- Clear previous rules, collect log
@@ -107,16 +107,13 @@ function block.write(self, section)
   for _, d in ipairs(deleted) do log[#log+1] = d end
 
   -- Build commands (quote comment with \")
-  local cmd_udp = "nft add rule inet fw4 forward index 0 meta l4proto udp ether saddr " .. mac_set .. " counter jump handle_reject comment \\\"" .. comment .. "\\\""
-  local cmd_tcp = "nft add rule inet fw4 forward index 0 meta l4proto tcp ether saddr " .. mac_set .. " counter jump handle_reject comment \\\"" .. comment .. "\\\""
-
+  local cmd_rt = "nft add rule inet fw4 raw_prerouting ether saddr " .. mac_set .. " counter counter reject comment \\\"" .. comment .. "\\\""
+  
   -- Execute
-  sys.call(cmd_udp .. " 2>/dev/null")
-  sys.call(cmd_tcp .. " 2>/dev/null")
+  sys.call(cmd_rt .. " 2>/dev/null")
 
   -- Log footer
-  log[#log+1] = cmd_udp
-  log[#log+1] = cmd_tcp
+  log[#log+1] = cmd_rt
   fs.writefile("/tmp/macblock_last_cmds", "Group: " .. (label or "") .. "\n" .. table.concat(log, "\n") .. "\n")
 end
 
