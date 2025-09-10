@@ -13,9 +13,8 @@ make package/luci-macblock/compile -j$(nproc)
 Artifacts will appear under `bin/packages/*/*/`.
 
 # HowTo delete rules for group in single string
-```
 nft -a list chain inet fw4 raw_prerouting | grep -F '"fw4mb_*GroupNAME*"' | sed -n 's/.*# handle \\([0-9]\\+\\)$/\1/p' | xargs -r -n1 nft delete rule inet fw4 raw_prerouting handle
-```
+
 # HowTo schedule block
 You can use cron with command in executed commands and unblock using command upper
 
