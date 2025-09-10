@@ -18,3 +18,16 @@ nft -a list chain inet fw4 raw_prerouting | grep -F '"fw4mb_*GroupNAME*"' | sed 
 # HowTo schedule block
 You can use cron with command in executed commands and unblock using command upper
 
+# Sreenshots
+
+<table>
+    <tr>
+    <td width="50%">Default bootstrap theme</td>
+    <td width="50%">OpenWRT2020 theme</td>
+  </tr
+  <tr>
+    <td width="50%"><img width="50%" height="50%" alt="Clipboard_08-22-2025_01" src="https://github.com/user-attachments/assets/bf0237bd-d1a6-4b0d-9a69-f3209e0f4124" /></td>
+    <td width="50%"><img width="50%" height="50%" alt="Clipboard_08-22-2025_02" src="https://github.com/user-attachments/assets/69a85c91-166c-43a3-b209-097208fe9467" /></td>
+  </tr>
+</table>
+
