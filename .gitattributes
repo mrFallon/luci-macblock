@@ -1,0 +1,9 @@
+﻿# Установить поведение по умолчанию: автоопределение, но всегда использовать LF для конца строки
+* text=auto eol=lf
+
+# Явно указать типы файлов, которые точно должны быть LF (для перестраховки)
+*.lua text eol=lf
+*.htm text eol=lf
+*.html text eol=lf
+*.sh text eol=lf
+Makefile text eol=lf

@@ -36,7 +36,7 @@ col_name.rawhtml = true
 function col_name.cfgvalue(self, section)
 local name = uci:get("macblock", section, "name") or section
   return '<span style="font-size:2rem;font-weight:700;line-height:2">' ..
-         luci.util.pcdata(name) .. '</span>'
+         luci.xml.pcdata(name) .. '</span>'
 end
 
 
