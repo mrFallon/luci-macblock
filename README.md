@@ -7,6 +7,7 @@ Only for nftables (OpenWRT v22 and upper). Optimized for phone view.
 Place this directory under `package/luci-macblock` inside your SDK/buildroot and run:
 
 ```
+git clone https://github.com/mrFallon/luci-macblock.git package/luci-macblock
 make defconfig
 make package/luci-macblock/compile -j$(nproc)
 ```
